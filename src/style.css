@@ -930,6 +930,10 @@ body {
     font-size: 27px;
   }
 
+  .reviews {
+    padding: 0 10px;
+  }
+
   .reviews__title {
     font-size: 27px;
   }
