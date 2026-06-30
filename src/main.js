@@ -70,7 +70,7 @@ const eventsArray = [
     childrenPrice: '55.00 BYN',
   },
   {
-    date: '25.06.2026',
+    date: '25.07.2026',
     day: 'чт.',
     start: '18:00',
     duration: '4 ч. 15 мин.',
@@ -268,8 +268,11 @@ form.addEventListener('submit', (e) => {
     );
   });
 
-  console.log(eventsArrayFiltered);
-
+  if (eventsArrayFiltered.length === 0) {
+    events.innerHTML =
+      '<div class="event-cards__nothing-found">Ничего не найдено</div>';
+    return;
+  }
   events.innerHTML = eventsArrayFiltered
     .sort((a, b) => processDate(a.date) - processDate(b.date))
     .map((event) => {
