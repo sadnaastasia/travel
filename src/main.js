@@ -172,23 +172,34 @@ function showSlide(index) {
 prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
 nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
 
-document.querySelectorAll('.review-card').forEach((review) => {
-  const reviewText = review.querySelector('.review-card__text');
+function checkReviewCards() {
+  document.querySelectorAll('.review-card').forEach((review) => {
+    const reviewText = review.querySelector('.review-card__text');
 
-  if (reviewText.scrollHeight > reviewText.clientHeight) {
-    const reviewBtn = document.createElement('button');
-    reviewBtn.className = 'review-card__button';
-    reviewBtn.textContent = 'далее...';
-    review.querySelector('.review-card__main').append(reviewBtn);
+    const button = review.querySelector('.review-card__button');
 
-    reviewBtn.addEventListener('click', () => {
-      reviewText.classList.toggle('open');
-      reviewBtn.textContent = reviewText.classList.contains('open')
-        ? 'свернуть'
-        : 'далее...';
-    });
-  }
+    if (reviewText.scrollHeight > reviewText.clientHeight) {
+      if (!button) {
+        const reviewBtn = document.createElement('button');
+        reviewBtn.className = 'review-card__button';
+        reviewBtn.textContent = 'далее...';
+        review.querySelector('.review-card__main').append(reviewBtn);
+
+        reviewBtn.addEventListener('click', () => {
+          reviewText.classList.toggle('open');
+          reviewBtn.textContent = reviewText.classList.contains('open')
+            ? 'свернуть'
+            : 'далее...';
+        });
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkReviewCards();
 });
+window.addEventListener('resize', checkReviewCards);
 
 const timetableBtn = document.getElementById('timetable-button');
 timetableBtn.addEventListener('click', () => {
